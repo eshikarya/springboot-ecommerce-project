@@ -1,6 +1,7 @@
 package com.ecommerce.project.exception;
 
 import com.ecommerce.project.payload.APIResponse;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -26,6 +27,13 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+//    @ExceptionHandler(ConstraintViolationException.class)
+//    public ResponseEntity<APIResponse> handleConstraintViolationException(ConstraintViolationException e){
+//        String message = e.getLocalizedMessage().substring(e.getLocalizedMessage().lastIndexOf("='"),e.getLocalizedMessage().lastIndexOf("'"));
+//        APIResponse apiResponse = new APIResponse(message,false);
+//        return new ResponseEntity<>(apiResponse,HttpStatus.BAD_REQUEST);
+//    }
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<APIResponse> handleResourceNotFoundException(ResourceNotFoundException e){
