@@ -7,14 +7,18 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="products")
+@Table(name="products")
+@ToString
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "product_id")
     private Long productId;
 
     private String productName;
@@ -30,4 +34,9 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 //    private Long sellerId;
+
+    @ManyToOne
+    @JoinColumn(name = "seller_id")
+    private User user;
+
 }
