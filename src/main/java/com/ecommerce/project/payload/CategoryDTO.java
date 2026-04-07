@@ -13,6 +13,6 @@ public class CategoryDTO {
     private Long categoryId;
 
     @NotBlank(message = "Category name must not be blank")
-    @Size(min=3,message = "Category name should contain at least 3 characters")
+    @Size(min = 3, message = "Category name should contain at least 3 characters")
     private String categoryName;
 }

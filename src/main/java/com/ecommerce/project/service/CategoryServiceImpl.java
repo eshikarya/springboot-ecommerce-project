@@ -27,13 +27,13 @@ public class CategoryServiceImpl implements CategoryService {
     private ModelMapper modelMapper;
 
     @Override
-    public CategoryResponse getAllCategories(Integer pageNumber,Integer pageSize, String sortBy,String sortOrder) {
+    public CategoryResponse getAllCategories(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
 
         Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc")
                 ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
 
-        Pageable pageDetails = PageRequest.of(pageNumber,pageSize,sortByAndOrder);
+        Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
         Page<Category> categoryPage = categoryRepository.findAll(pageDetails);
 
         List<Category> categories = categoryPage.getContent();
@@ -74,12 +74,12 @@ public class CategoryServiceImpl implements CategoryService {
 
         Category savedCategory = categories.orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
 
-        Category toBeUpdatedCategory = modelMapper.map(categoryDTO,Category.class);
+        Category toBeUpdatedCategory = modelMapper.map(categoryDTO, Category.class);
 
         toBeUpdatedCategory.setCategoryId(categoryId);
         savedCategory = categoryRepository.save(toBeUpdatedCategory);
 
-        return modelMapper.map(savedCategory,CategoryDTO.class);
+        return modelMapper.map(savedCategory, CategoryDTO.class);
     }
 
     @Override

@@ -50,8 +50,8 @@ public class ProductServiceImpl implements ProductService {
 
         List<Product> productsInCategory = category.getProducts();
 
-        for (Product productInCategory:productsInCategory){
-            if (productInCategory.getProductName().equals(productDTO.getProductName())){
+        for (Product productInCategory : productsInCategory) {
+            if (productInCategory.getProductName().equals(productDTO.getProductName())) {
                 isProductPresent = true;
                 break;
             }
@@ -61,9 +61,8 @@ public class ProductServiceImpl implements ProductService {
             product.setCategory(category);
             product.setImage("default.png");
             product.setSpecialPrice(calculateSpecialPrice(product.getPrice(), product.getDiscount(), product.getQuantity()));
-        }
-        else{
-            throw new APIException("Product already exists in Category: "+category.getCategoryName()+"!!!!");
+        } else {
+            throw new APIException("Product already exists in Category: " + category.getCategoryName() + "!!!!");
         }
         Product savedProduct = productRepository.save(product);
         return modelMapper.map(savedProduct, ProductDTO.class);
@@ -72,14 +71,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponse getAllProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
 
-        Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc")?
-                Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
+        Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc") ?
+                Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 
-        Pageable pageDetails = PageRequest.of(pageNumber,pageSize,sortByAndOrder);
+        Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
 
         Page<Product> productsPage = productRepository.findAll(pageDetails);
 
-        List<Product> products = productsPage.getContent() ;
+        List<Product> products = productsPage.getContent();
 
         if (products.isEmpty()) throw new APIException("No products available !!!!");
 
@@ -103,12 +102,12 @@ public class ProductServiceImpl implements ProductService {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
 
-        Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc")?
-                Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
+        Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc") ?
+                Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 
-        Pageable pageDetails = PageRequest.of(pageNumber,pageSize,sortByAndOrder);
+        Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
 
-        Page<Product> productsPage = productRepository.findByCategoryOrderByPriceAsc(category,pageDetails);
+        Page<Product> productsPage = productRepository.findByCategoryOrderByPriceAsc(category, pageDetails);
 
         List<Product> products = productsPage.getContent();
 
@@ -130,12 +129,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponse getProductsByKeyword(String keyword, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
 
-        Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc")?
-                Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
+        Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc") ?
+                Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 
-        Pageable pageDetails = PageRequest.of(pageNumber,pageSize,sortByAndOrder);
+        Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
 
-        Page<Product> productsPage = productRepository.findByProductNameContainingIgnoreCase(keyword,pageDetails);
+        Page<Product> productsPage = productRepository.findByProductNameContainingIgnoreCase(keyword, pageDetails);
 
         List<Product> products = productsPage.getContent();
 

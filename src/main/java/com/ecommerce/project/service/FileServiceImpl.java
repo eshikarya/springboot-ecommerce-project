@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 @Service
-public class FileServiceImpl implements FileService{
+public class FileServiceImpl implements FileService {
     @Override
     public String uploadImage(String path, MultipartFile file) throws IOException {
         String originalFileName = file.getOriginalFilename();
@@ -21,7 +21,7 @@ public class FileServiceImpl implements FileService{
 
         File folder = new File(path);
 
-        if(!folder.exists())
+        if (!folder.exists())
             folder.mkdir();
 
         Files.copy(file.getInputStream(), Paths.get(filePath));
