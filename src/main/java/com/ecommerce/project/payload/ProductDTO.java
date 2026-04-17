@@ -22,9 +22,10 @@ public class ProductDTO {
     private String description;
 
     private String image;
+
     private Integer quantity;
     private double price;
     private double discount;
-    private Double specialPrice;
+    private Double finalPrice;
     private Category category;
 }
