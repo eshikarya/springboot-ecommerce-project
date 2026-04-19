@@ -37,10 +37,7 @@ public class CartController {
 
     @GetMapping("/carts/users/cart")
     public ResponseEntity<CartDTO> getCartById(){
-        String emailId = authUtil.loggedInEmail();
-        Cart cart = cartRepository.findCartByEmail(emailId);
-        Long cartId = cart.getCartId();
-        return new ResponseEntity<>(cartService.getUsersCart(emailId,cartId),HttpStatus.FOUND);
+        return new ResponseEntity<>(cartService.getUsersCart(),HttpStatus.FOUND);
     }
 
     @PutMapping("/cart/products/{productId}/quantity/{operation}")
