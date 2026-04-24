@@ -4,6 +4,8 @@ import com.ecommerce.project.config.AppConstants;
 import com.ecommerce.project.payload.ProductDTO;
 import com.ecommerce.project.payload.ProductResponse;
 import com.ecommerce.project.service.ProductService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
+@Tag(name = "Product APIs",description = "APIs for managing products")
 public class ProductController {
     @Autowired
     private ProductService productService;

@@ -38,15 +38,15 @@ public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
     //get JWT from header
-//    public String getJwtFromHeader(HttpServletRequest request){
-//        String bearerToken = request.getHeader("Authorization");
-//        logger.debug("Authorization Token: {}",bearerToken);
-//        if (bearerToken!=null && bearerToken.startsWith("Bearer ")){
-//            bearerToken = bearerToken.substring(7);
-//            return bearerToken;
-//        }
-//        return null;
-//    }
+    public String getJwtFromHeader(HttpServletRequest request){
+        String bearerToken = request.getHeader("Authorization");
+        logger.debug("Authorization Token: {}",bearerToken);
+        if (bearerToken!=null && bearerToken.startsWith("Bearer ")){
+            bearerToken = bearerToken.substring(7);
+            return bearerToken;
+        }
+        return null;
+    }
 
     // get JWT from cookie
     public String getJwtFromCookie(HttpServletRequest request){

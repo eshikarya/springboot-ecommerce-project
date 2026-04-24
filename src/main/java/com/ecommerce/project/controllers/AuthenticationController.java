@@ -11,6 +11,7 @@ import com.ecommerce.project.security.request.SignupRequest;
 import com.ecommerce.project.security.response.MessageResponse;
 import com.ecommerce.project.security.response.UserInfoResponse;
 import com.ecommerce.project.security.services.UserDetailsImpl;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -29,6 +30,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "Authentication APIs",description = "APIs for managing user authentication")
 public class AuthenticationController {
 
     @Autowired
@@ -73,6 +75,7 @@ public class AuthenticationController {
 
 //        UserInfoResponse userInfoResponse = new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), jwtToken, roles);
         UserInfoResponse userInfoResponse = new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), roles);
+
 //        return new ResponseEntity<>(userInfoResponse, HttpStatus.OK);
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE,jwtCookie.toString()).body(userInfoResponse);
     }
